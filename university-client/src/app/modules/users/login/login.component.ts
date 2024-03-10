@@ -7,7 +7,8 @@ import { LoginModel } from '../models/login.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [UserService]
 })
 
 export class LoginComponent {
@@ -18,21 +19,12 @@ export class LoginComponent {
     "password": new FormControl(this.user.password, [Validators.required])
   })
 
-
-  login(): void {
-    //const userExists = this._userService.login({ name: this.user.name, password: this.user.password })
-    // if (userExists) {
-    //   const validPassword = this._userService.checkPassword(this.username, this.password);
-    //   if (validPassword) {
-    //     this.loginError = ''; this.courseName = this._userService.getCourseName(this.username);
-    //   } else {
-    //     this.loginError = 'Incorrect password. Please try again.';
-    //   }
-    // } else {
-    //   this.loginError = 'User does not exist. Please register first.'; // You may choose to navigate to the register component here 
-    // }
+  login()
+  {
+    console.log("begin login")
+    const userExists = this._userService.login({ name: this.user.name, password: this.user.password })
   }
 
-  constructor(/*private _userService: UserService*/) { }
+  constructor(private _userService: UserService) { }
 }
 
