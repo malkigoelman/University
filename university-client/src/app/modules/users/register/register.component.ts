@@ -18,7 +18,7 @@ export class RegisterComponent {
   register(){
     console.log("begin register")
     if(this.userForm.valid){
-      this._userService.signin(this.user).then(response => {
+      this._userService.signin(this.userForm.value).then(response => {
         console.log('Server response:', response);
       }).catch(error => {
         console.error('Error:', error);

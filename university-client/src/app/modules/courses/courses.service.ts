@@ -28,8 +28,8 @@ export class CoursesService {
 
     getCourses(): Promise<Course[]> {
         return new Promise((res, rej) => {
-            // this._http.get<Course[]>("/courses")
-            //     .subscribe({ next: (data) => res(data), error: (error) => rej(error) })
+            this._http.get<Course[]>("/courses")
+                .subscribe({ next: (data) => res(data), error: (error) => rej(error) })
             res(this._courses)
         })
     }

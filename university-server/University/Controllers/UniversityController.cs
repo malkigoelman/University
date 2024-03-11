@@ -7,6 +7,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Xml.Linq;
+using static University.Controllers.AuthorizationToken;
 
 namespace University.Controllers
 {
@@ -15,7 +16,7 @@ namespace University.Controllers
     [Authorize]
     public class UniversityController : ControllerBase
     {
-        private static List<User> Users = new()
+        private static readonly List<User> Users = new()
         {
             new User("Malki", "Menachem 18", "malki@gmail.com", "123"),
             new User("Batya", "Ami 9", "batya@gmail.com", "321"),
@@ -23,13 +24,13 @@ namespace University.Controllers
             new User("w", "Menachem 18", "malki@gmail.com", "w")
         };
 
-        private static List<Lecturer> Lecturers = new()
+        private static readonly List<Lecturer> Lecturers = new()
         {
             new Lecturer("Marze", "address 2", "fdafd@gmail.com", "0987"),
             new Lecturer("lecturer", "address 2", "fdafd@gmail.com", "2222"),
         };
 
-        private static List<Category> Categories = new()
+        private static readonly List<Category> Categories = new()
         {
             new Category("Camputers", ""),
             new Category("Math", ""),
@@ -38,7 +39,7 @@ namespace University.Controllers
             new Category("History", "")
         };
 
-        private static List<Course> Courses = new()
+        private static readonly List<Course> Courses = new()
         {
             new Course("C#", 1, 50, new DateTime(2024,03,14),
                 new List<string>(){"OOP", "string", "variables"}, LearningOptions.FRONTAL, 1, ""),
@@ -50,12 +51,10 @@ namespace University.Controllers
                             new List<string>(){"Songs", "Musics"}, LearningOptions.ZOOM, 1, ""),
         };
 
-        private readonly ILogger<UniversityController> _logger;
         private readonly IConfiguration _configuration;
 
-        public UniversityController(ILogger<UniversityController> logger, IConfiguration configuration)
+        public UniversityController(IConfiguration configuration)
         {
-            _logger = logger;
             _configuration = configuration;
         }
 
@@ -114,28 +113,13 @@ namespace University.Controllers
         public IActionResult Login([FromBody] LoginModel loginModel)
         {
             var exist = Users.FindAll(u => u.Name == loginModel.UserName);
-            if (exist is null)
+            if (exist is null || exist.Count == 0)
                 return Unauthorized(new { Error = "user" });
             var correct = exist.Find(u => u.Password == loginModel.Password);
             if (correct is null)
                 return Unauthorized(new { Error = "password" });
 
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name, "malkabr"),
-                new Claim(ClaimTypes.Role, "teacher")
-            };
-
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("JWT:Key")));
-            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokeOptions = new JwtSecurityToken(
-                issuer: _configuration.GetValue<string>("JWT:Issuer"),
-                audience: _configuration.GetValue<string>("JWT:Audience"),
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(6),
-                signingCredentials: signinCredentials
-            );
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+            var tokenString = MakeToken(loginModel, _configuration);
             return Ok(new { Token = tokenString });
         }
 
@@ -147,7 +131,9 @@ namespace University.Controllers
             if (exist is null)
                 return NotFound(new { Error = "user name is already exist" });
             Users.Add(user);
-            return Ok();
+
+            var tokenString = MakeToken(new LoginModel(user), _configuration);
+            return Ok(new { Token = tokenString });
         }
     }
 }

@@ -1,0 +1,9 @@
+body {
+    background-image: url('../../assets/background.jpg');
+    background-size: cover; 
+}
+
+.app-root {
+    background-image: url('../../assets/background.jpg');
+    background-size: cover;
+}

@@ -7,7 +7,7 @@ import { CommonModule } from "@angular/common";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(userRoutes),HttpClientModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(userRoutes), HttpClientModule],
     declarations: [LoginComponent],
     providers: [UsersModule],
     exports: [LoginComponent, RouterModule]

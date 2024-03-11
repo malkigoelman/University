@@ -1,19 +1,72 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .course-details {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .lesson-topics ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .bold-text {
+            font-weight: bold;
+        }
+
+        .update-button {
+            margin-top: 10px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 <p>course-details works!</p>
-<div class="course-details">
-    <div class="category">
-        <span class="category-icon">Category Icon</span>
-        <span class="category-name">Category Name</span>
+<div class="container">
+    <div class="course-details">
+        <div class="category">
+            <div class="course-details">
+                <div class="text-center">
+                    <div class="category">
+                        <span class="name">name  </span><br/>
+                        <span class="category-name">courseData  </span>
+                        <span class="category-icon">✈</span>
+                    </div>
+                    <div class="start-date" [ngClass]="{'bold-text': isUpcomingWeek(startDate)}">startDate
+                    </div>
+                </div>
+                <img src="../../../../assets/123.jpg" alt="Course Image">
+                <div>כמות שיעורים</div>
+                <div> אופן הלמידה (איקון)</div>
+                <div class="lesson-topics">
+                    <h4>Lesson Topics:</h4>
+                    <ul>
+                        <li>בתיה</li>
+                        <li>ומלכי</li>
+                        <li>מחכות </li>
+                        <li>לגאולה</li>
+                        <!-- <li *ngFor="let topic of courseData.topic">{{topic}}</li> -->
+                    </ul>
+                </div>
+                <button *ngIf="isInstructor" class="update-button">Update Course Details</button>
+                <button class="follow us">follow us</button>
+            </div>
+        </div>
     </div>
-    <!-- <div class="start-date" [ngClass]="{'bold-text': isUpcomingWeek(startDate)}">Start Date: {{ startDate }}</div> -->
-    <img src="course-image-url" alt="Course Image">
-    <div class="lesson-topics">
-        <h4>Lesson Topics:</h4>
-        <ul>
-            <li>Topic 1</li>
-            <li>Topic 2</li>
-            <li>Topic 3</li>
-            <!-- Add more topics as needed -->
-        </ul>
-    </div>
-    <!-- <button *ngIf="isInstructor" class="update-button">Update Course Details</button> -->
 </div>
