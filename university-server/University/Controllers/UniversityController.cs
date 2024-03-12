@@ -13,7 +13,7 @@ namespace University.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class UniversityController : ControllerBase
     {
         private static readonly List<User> Users = new()
@@ -45,7 +45,7 @@ namespace University.Controllers
                 new List<string>(){"OOP", "string", "variables"}, LearningOptions.FRONTAL, 1, ""),
             new Course("Java", 1, 50, new DateTime(2024,01,14),
                             new List<string>(){"Server", "string", "variables"}, LearningOptions.ZOOM, 2, ""),
-            new Course("Graghs", 2, 50, new DateTime(2024,05,14),
+            new Course("Graghs", 2, 50, new DateTime(2000,05,14),
                             new List<string>(){"numbers", "pivots"}, LearningOptions.FRONTAL, 2, ""),
             new Course("Dancing", 4, 50, new DateTime(2025,02,09),
                             new List<string>(){"Songs", "Musics"}, LearningOptions.ZOOM, 1, ""),
@@ -59,9 +59,19 @@ namespace University.Controllers
         }
 
         [HttpGet("courses")]
+        [AllowAnonymous]
         public IActionResult GetAllCourses()
         {
             return Ok(Courses);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCategoryById(int id)
+        {
+            var category=Categories.FirstOrDefault(c=> c.Id == id);
+            if(category == null)
+                return NotFound();
+            return Ok(category);
         }
 
         [HttpGet("courses/{id}")]
@@ -74,14 +84,14 @@ namespace University.Controllers
         }
 
         [HttpPost("courses")]
-        public IActionResult AddCourse([FromBody] Course course)
+        public IActionResult AddCourse([FromBody] CourseOutModel course)
         {
-            Courses.Add(course);
+            Courses.Add(new Course(course));
             return Ok(course);
         }
 
         [HttpPut("courses/{id}")]
-        public IActionResult UpdateCourse(int id, [FromBody] Course course)
+        public IActionResult UpdateCourse(int id, [FromBody] CourseOutModel course)
         {
             var exist = Courses.Find(x => x.Id == id);
             if (exist is null)
@@ -93,7 +103,7 @@ namespace University.Controllers
             exist.Cilibus.Clear();
             course.Cilibus.ForEach(c => exist.Cilibus.Add(c));
             exist.NumberLessons = course.NumberLessons;
-            exist.DateStart = course.DateStart;
+            exist.DateStart =DateTime.Parse(course.DateStart);
             exist.Image = course.Image;
             return Ok(exist);
         }

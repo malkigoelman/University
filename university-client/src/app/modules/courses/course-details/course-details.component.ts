@@ -1,31 +1,42 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CoursesService } from '../courses.service';
+import {   Course, learningOptions } from '../models/course.model';
 
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+  styleUrls: ['./course-details.component.css'],
+  providers: [CoursesService]
 })
-export class CourseDetailsComponent implements OnInit{
+export class CourseDetailsComponent implements OnInit {
 
-  
-  courseData:any;
+  @Input() course:Course= new Course();
+  // course: Course = new Course();
 
-  constructor(private http:HttpClient) { }
+
+  constructor(private _service: CoursesService) { }
 
   ngOnInit(): void {
-    // this.http.get('/University/courses')
-    // .subscribe((data: any)=>{
-    //   this.courseData =data;
-    // });
+    console.log("Course",this.course);
+    this._service.getCourses()
+    .then(courses => {
+        this.courseData = courses;
+        console.log("Courses:", this.courseData);        
+     })
+    .catch(error => {
+        console.error('Error fetching courses:', error);
+    });
   }
-  startDate: string = "2024-03-10";
+
+  courseData: Course[];
   isInstructor: boolean = true;
 
 
-  isUpcomingWeek(startData: string): boolean {
-    //יש כאן משהו
-    return true;
+  isUpcomingWeek(startDate: Date): boolean {
 
+    var currentDate = new Date();
+    var upcomingDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000));
+    return startDate.getTime() <= upcomingDate.getTime();
   }
 }

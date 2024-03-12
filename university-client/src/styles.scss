@@ -7,10 +7,10 @@
 //     background-color: $teal-700;
 // }
 
-.turqiz.background {
-    background-color: var(--bs-secondary-bg-rgb), .5;
+.transparent-background {
+    background-image: url('./assets/background.jpg');
+    opacity: 0.5; /* שקיפות - 0.5 מייצגת שקיפות בינונית */
 }
-
 // .turqiz.front {
 //     // background-color: var($teal-700);
 // }

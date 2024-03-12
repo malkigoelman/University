@@ -37,32 +37,35 @@
         }
     </style>
 </head>
-<p>course-details works!</p>
 <div class="container">
     <div class="course-details">
         <div class="category">
             <div class="course-details">
                 <div class="text-center">
                     <div class="category">
-                        <span class="name">name  </span><br/>
-                        <span class="category-name">courseData  </span>
+                        <span class="name">{{course?.name }} </span><br />
+                        <span class="category-name">{{course?.categoryId }}</span>
                         <span class="category-icon">✈</span>
                     </div>
-                    <div class="start-date" [ngClass]="{'bold-text': isUpcomingWeek(startDate)}">startDate
-                    </div>
+                    <!-- <div class="start-date" [ngClass]="{'bold-text': isUpcomingWeek(course?.dateStart)}"> -->
+                        {{ course?.dateStart | date: 'dd/MM/yyyy' }}
+                    <!-- </div> -->
                 </div>
                 <img src="../../../../assets/123.jpg" alt="Course Image">
-                <div>כמות שיעורים</div>
-                <div> אופן הלמידה (איקון)</div>
                 <div class="lesson-topics">
-                    <h4>Lesson Topics:</h4>
+                    <h4>Cilibus:</h4>
                     <ul>
-                        <li>בתיה</li>
-                        <li>ומלכי</li>
-                        <li>מחכות </li>
-                        <li>לגאולה</li>
-                        <!-- <li *ngFor="let topic of courseData.topic">{{topic}}</li> -->
+                        <li *ngFor="let topic of course?.cilibus">
+                            <!-- <img src="{{ topic }}" alt="Lesson Icon"> -->
+                            {{ topic }}
+                        </li>
                     </ul>
+                </div>
+                <div class="col-md-6">
+                    <div>כמות שיעורים</div>
+                </div>
+                <div class="col-md-6">
+                    <div> אופן הלמידה (איקון)</div>
                 </div>
                 <button *ngIf="isInstructor" class="update-button">Update Course Details</button>
                 <button class="follow us">follow us</button>
