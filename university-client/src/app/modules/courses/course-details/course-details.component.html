@@ -62,13 +62,13 @@
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <div>כמות שיעורים</div>
+                    <div>{{course?.numberLessons}} 🕰 </div>
                 </div>
                 <div class="col-md-6">
-                    <div> אופן הלמידה (איקון)</div>
+                    <div>{{optionLearning}}</div>
                 </div>
-                <button *ngIf="isInstructor" class="update-button">Update Course Details</button>
-                <button class="follow us">follow us</button>
+                <button *ngIf="ABCD()" class="btn btn-success update-button">Update Course Details</button>
+                <button *ngIf="!ABCD()" class="btn btn-success follow">Follow us</button>
             </div>
         </div>
     </div>

@@ -7,10 +7,10 @@ import { UsersModule } from "../modules/users/users.module";
 import { appRoutes } from "./app.routes";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from "../modules/users/register/register.component";
-
+import { HomePageComponent } from "../home-page/home-page.component";
 @NgModule({
     imports: [BrowserModule,FormsModule,ReactiveFormsModule, UsersModule, CoursesModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent,RegisterComponent],
+    declarations: [AppComponent,RegisterComponent,],
     providers: [],
     bootstrap: [AppComponent],
     exports: [RouterModule, AppComponent]

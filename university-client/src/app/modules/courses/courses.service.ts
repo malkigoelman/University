@@ -4,28 +4,18 @@ import { Course, learningOptions } from "./models/course.model";
 import { Observable } from "rxjs";
 import { Category } from "./models/category.model";
 import { error } from "console";
+import { Lecturer } from "./models/lecturer.model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class CoursesService {
-    // private _courses: Course[] = [
-    //     {
-    //         id: 1, name: "C#", categoryId: 1, numberLessons: 50, dateStart: new Date("2024-02-02"),
-    //         optionLearning: learningOptions.FRONTAL, lectureId: 1, image: "",cilibus:['mnmn']
-    //     },
-    //     {
-    //         id: 2, name: "Math", categoryId: 1, numberLessons: 50, dateStart: new Date("2024-02-01"),
-    //         optionLearning: learningOptions.FRONTAL, lectureId: 1, image: "",cilibus:['ngh']
-    //     }
-    // ];
-    private readonly _path = '/university'
-    private _categories: Category[] = [
 
-        { id: 1, name: "Camputers", icon: "" },
-        { id: 2, name: "Math", icon: "" },
-        { id: 3, name: "English", icon: "" },
-        { id: 4, name: "Gym", icon: "" },
-        { id: 5, name: "History", icon: "" }
-    ];
+    private readonly _path = '/university'
+
+    navigateIfNotLoggedIn(): void {
+        if (!sessionStorage.getItem('userToken'))
+            this._router.navigate(['/']);
+    }
 
     getCourses(): Promise<Course[]> {
         return new Promise((req, rej) => {
@@ -43,35 +33,18 @@ export class CoursesService {
         })
     }
 
-    getCourseById(id: number): Promise<Course> {
-        return new Promise((res, rej) => {
-            this._http.get<Course>(`/courses/${id}`)
-                .subscribe({ next: (data) => res(data), error: (error) => rej(error) })
-        })
+    getCourseById(id: number): Observable<Course> {
+        return this._http.get<Course>(this._path + `/courses/${id}`)
     }
 
-    getCategories(): Promise<Category[]> {
-        return new Promise((resolve, reject) => {
-            this._http.get<Category[]>('/id')
-                .subscribe({
-                    next: (data) => resolve(data),
-                    error: (error) => reject(error)
-                });
-        });
+
+
+    addCourse(course: Course): Observable<Course> {
+        return this._http.post<Course>(this._path + `/courses`, course)
     }
 
-    addCourse(course: Course): Promise<Course> {
-        return new Promise((res, rej) => {
-            this._http.post<Course>("/courses", course)
-                .subscribe({ next: (data) => res(data), error: (error) => rej(error) })
-        })
-    }
-
-    editCouse(id: number, course: Course): Promise<Course> {
-        return new Promise((res, rej) => {
-            this._http.put<Course>(`/courses${id}`, course)
-                .subscribe({ next: (data) => res(data), error: (error) => rej(error) })
-        })
+    editCouse(id: number, course: Course): Observable<Course> {
+        return this._http.put<Course>(this._path + `/courses/${id}`, course)
     }
 
     deleteCourse(course: Course): Promise<Course> {
@@ -81,5 +54,12 @@ export class CoursesService {
         })
     }
 
-    constructor(private _http: HttpClient) { }
+    getCategories(): Observable<Category[]> {
+        return this._http.get<Category[]>(this._path + `/categories`)
+    }
+
+    getLecturers(): Observable<Lecturer[]> {
+        return this._http.get<Lecturer[]>(this._path + `/lecturers`)
+    }
+    constructor(private _http: HttpClient, private _router: Router) { }
 }
