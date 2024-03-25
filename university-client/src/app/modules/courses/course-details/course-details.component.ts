@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CoursesService } from '../courses.service';
 import { Course } from '../models/course.model';
 import { ActivatedRoute } from '@angular/router';
@@ -15,8 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class CourseDetailsComponent implements OnInit {
 
-  course: Course = new Course();
-  // learningOptionIcon: LearningOptionIconPipe;
+  @Input() course: Course = new Course();
   isLecturer: boolean;
   category: Category;
   lecturer: Lecturer;
@@ -27,19 +26,20 @@ export class CourseDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this._service.navigateIfNotLoggedIn()
-
+    console.log("Course", this.course);
+    this._service.getCourses()
+      .then(courses => {
+      })
+      .catch(error => {
+        console.error('Error fetching courses:', error);
+      });
+      //
     var id: number;
     this._actroute.params.subscribe(params => id = parseInt(params['id']))
     this._service.getCourseById(id)
       .subscribe({
         next: (data) =>
           this.course = data,
-        error: () =>
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "can't connect to server"
-          })
       })
 
     this._service.getCategories().subscribe((data) => this.category = data.find(c => c.id == this.course.categoryId))

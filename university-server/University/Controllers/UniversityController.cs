@@ -41,7 +41,7 @@ namespace University.Controllers
 
         private static readonly List<Course> Courses = new()
         {
-            new Course("C#", 1, 50, new DateTime(2024,03,14),
+            new Course("C++", 1, 50, new DateTime(2024,03,14),
                 new List<string>(){"OOP", "string", "variables"}, LearningOptions.FRONTAL, 1, "assets/courses-icons/csharp.svg"),
             new Course("Java", 1, 50, new DateTime(2024,01,14),
                             new List<string>(){"Server", "string", "variables"}, LearningOptions.ZOOM, 2, "assets/courses-icons/java.png"),

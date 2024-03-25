@@ -8,25 +8,7 @@ import { Lecturer } from "./models/lecturer.model";
 
 @Injectable()
 export class CoursesService {
-    // private _courses: Course[] = [
-    //     {
-    //         id: 1, name: "C#", categoryId: 1, numberLessons: 50, dataStart: new Date("2024-02-02"),
-    //         optionLearning: learningOptions.FRONTAL, lectureId: 1, image: ""
-    //     },
-    //     {
-    //         id: 2, name: "Math", categoryId: 1, numberLessons: 50, dataStart: new Date("2024-02-01"),
-    //         optionLearning: learningOptions.FRONTAL, lectureId: 1, image: ""
-    //     }
-    // ];
-
-    // private _categories: Category[] = [
-
-    //     { id: 1, name: "Camputers", icon: "" },
-    //     { id: 2, name: "Math", icon: "" },
-    //     { id: 3, name: "English", icon: "" },
-    //     { id: 4, name: "Gym", icon: "" },
-    //     { id: 5, name: "History", icon: "" }
-    // ];
+  
 
     private readonly _serviceName = "/university";
 

@@ -90,19 +90,9 @@ export class AddCourseComponent implements OnInit {
     this.addCilibus()
 
     this._service.getCategories().subscribe({
-      next: (data) => this.categeries = data, error: (error) => Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "can't connect to server"
-      })
     })
 
     this._service.getLecturers().subscribe({
-      next: (data) => this.lecturers = data, error: (error) => Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "can't connect to server"
-      })
     })
   }
 }

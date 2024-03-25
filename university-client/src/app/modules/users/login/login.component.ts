@@ -40,7 +40,7 @@ export class LoginComponent {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "user name is invalid"
+          text: "You are not registered in the system"
         });
         this._router.navigate(['/user/register'], { state: { name: this.userForm.controls['userName'].value } });
       } else {

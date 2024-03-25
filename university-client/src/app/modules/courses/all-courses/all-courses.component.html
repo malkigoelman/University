@@ -1,1 +1,52 @@
-<p>all-courses works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let course of filteredCourses">
+      <div class="card-body">
+        <app-course-details [course]="course"></app-course-details>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Search by Name" [(ngModel)]="filterName">
+      </div>
+      <div class="col-md-4">
+        <select class="form-control" [(ngModel)]="filterLearningOption">
+          <option value="">All Learning Options</option>
+          <option value="zoom">Zoom</option>
+          <option value="frontal">Frontal</option>
+        </select>
+      </div>
+
+
+      <div class="col-md-4">
+        <select class="form-control" [(ngModel)]="filterCategory">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary" (click)="applyFilters()">Filter</button>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3" *ngIf="isFiltersFilled()">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-success" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="text-center">
+      <h2>All Courses</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6" *ngFor="let course of courses">
+        <div class="card-body">
+          <app-course-details [course]="course"></app-course-details>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -60,7 +60,7 @@
                                             <div class="alert alert-danger"
                                                 *ngIf="courseForm.controls['numberLessons'].errors['required']">This
                                                 field is required</div>
-                                                <div class="alert alert-danger"
+                                            <div class="alert alert-danger"
                                                 *ngIf="courseForm.controls['numberLessons'].errors['min']">This
                                                 field must be positive</div>
                                         </ng-container>
@@ -88,8 +88,8 @@
                                                         id="zoomOption" [value]="0" formControlName="optionLearning">
                                                     <label class="form-check-label" for="zoomOption">
                                                         ZOOM
-                                                        <img src="../../../../assets/option-learning/1.png" alt="Zoom Icon"
-                                                            class="radio-icon">
+                                                        <img src="../../../../assets/option-learning/1.png"
+                                                            alt="Zoom Icon" class="radio-icon">
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
@@ -97,8 +97,8 @@
                                                         id="frontalOption" [value]="1" formControlName="optionLearning">
                                                     <label class="form-check-label" for="frontalOption">
                                                         FRONTAL
-                                                        <img src="../../../../assets/option-learning/0.png" alt="Frontal Icon"
-                                                            class="radio-icon">
+                                                        <img src="../../../../assets/option-learning/0.png"
+                                                            alt="Frontal Icon" class="radio-icon">
                                                     </label>
                                                 </div>
                                             </div>
@@ -141,8 +141,12 @@
                                     </div>
                                     <div class="d-grid gap-2">
                                         <button type="submit" class="btn btn-success"
-                                            [disabled]="courseForm.invalid">Add
+                                            [disabled]="courseForm.invalid">Save
                                             Course</button>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-success"
+                                            [disabled]="courseForm.invalid">Cancel</button>
                                     </div>
                                 </div>
                             </div>
